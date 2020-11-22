@@ -1,11 +1,11 @@
 package fr.ubx.poo.model.decor.bonus;
 
-import fr.ubx.poo.model.decor.Bonus;
+import fr.ubx.poo.model.decor.Decor;
 
-public class AddLife extends Bonus {
+public class Heart extends Decor {
     @Override
     public String toString() {
-        return "AddLife";
+        return "Heart";
         
     }
 }

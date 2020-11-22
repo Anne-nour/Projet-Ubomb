@@ -1,11 +1,22 @@
 package fr.ubx.poo.game;
 
+import java.util.Hashtable;
+import java.util.Map;
+
+import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
-
-import java.util.Hashtable;
-import java.util.Map;
+import fr.ubx.poo.model.decor.Monster;
+import fr.ubx.poo.model.decor.Princess;
+import fr.ubx.poo.model.decor.bonus.BombNumberInc;
+import fr.ubx.poo.model.decor.bonus.BombRangeInc;
+import fr.ubx.poo.model.decor.bonus.Heart;
+import fr.ubx.poo.model.decor.doors.DoorNextClosed;
+import fr.ubx.poo.model.decor.doors.DoorNextOpened;
+import fr.ubx.poo.model.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.model.decor.malus.BombNumberDec;
+import fr.ubx.poo.model.decor.malus.BombRangeDec;
 
 public class WorldBuilder {
     private final Map<Position, Decor> grid = new Hashtable<>();
@@ -32,6 +43,28 @@ public class WorldBuilder {
                 return new Stone();
             case Tree:
                 return new Tree();
+            case  Box:
+                return new Box();
+            case BombNumberDec:
+                return new BombNumberDec();
+            case BombNumberInc:
+                return new BombNumberInc();
+            case BombRangeInc:
+                return new BombRangeInc();
+            case Heart:
+                return new Heart();
+            case DoorNextClosed:
+                return new DoorNextClosed();
+            case DoorNextOpened:
+                return new DoorNextOpened();
+            case DoorPrevOpened:
+                return new DoorPrevOpened();
+            case BombRangeDec:
+                return new BombRangeDec();
+            case Monster:
+                return new Monster();
+            case Princess:
+                return new Princess();
             default:
                 return null;
         }
