@@ -4,13 +4,17 @@
 
 package fr.ubx.poo.model.go.character;
 
+
+
 import fr.ubx.poo.game.Direction;
+import fr.ubx.poo.game.Game;
 import fr.ubx.poo.game.Position;
 import fr.ubx.poo.model.Movable;
-import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
 import fr.ubx.poo.model.go.GameObject;
-import fr.ubx.poo.game.Game;
+
+
+
 
 public class Player extends GameObject implements Movable {
 
@@ -19,6 +23,10 @@ public class Player extends GameObject implements Movable {
     private boolean moveRequested = false;
     private int lives = 1;
     private boolean winner;
+    private Decor Stone;
+    private Decor Tree;
+
+
 
     public Player(Game game, Position position) {
         super(game, position);
@@ -35,26 +43,31 @@ public class Player extends GameObject implements Movable {
     }
 
     public void requestMove(Direction direction) {
+
         if (direction != this.direction) {
             this.direction = direction;
         }
+
         moveRequested = true;
     }
 
     @Override
     public boolean canMove(Direction direction) {
+        Position nextPos = direction.nextPosition(getPosition());
+        if ( !nextPos.inside( this.game.getWorld().dimension ) ){
+            return false;
+        }
+
+        if ( (game.getWorld().get(nextPos)  == Stone ) || (game.getWorld().get(nextPos)  == Tree) ){
+            return false;
+        }
+
         return true;
     }
 
+    @Override
     public void doMove(Direction direction) {
         Position nextPos = direction.nextPosition(getPosition());
-
-        //supprimer une box et la déplacer :
-        Decor decor= game.getWorld().get(nextPos);
-        if (decor  instanceof Box){
-            game.getWorld().clear(nextPos);
-            game.getWorld().set(direction.nextPosition(nextPos), decor);
-        }
         setPosition(nextPos);
     }
 
