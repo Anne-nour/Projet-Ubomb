@@ -7,7 +7,6 @@ import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
-import fr.ubx.poo.model.decor.Monster;
 import fr.ubx.poo.model.decor.Princess;
 import fr.ubx.poo.model.decor.bonus.BombNumberInc;
 import fr.ubx.poo.model.decor.bonus.BombRangeInc;
@@ -61,8 +60,6 @@ public class WorldBuilder {
                 return new DoorPrevOpened();
             case BombRangeDec:
                 return new BombRangeDec();
-            case Monster:
-                return new Monster();
             case Princess:
                 return new Princess();
             default:
