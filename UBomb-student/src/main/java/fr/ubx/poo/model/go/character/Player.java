@@ -12,6 +12,9 @@ import fr.ubx.poo.game.Position;
 import fr.ubx.poo.model.Movable;
 import fr.ubx.poo.model.decor.Decor;
 import fr.ubx.poo.model.go.GameObject;
+import fr.ubx.poo.model.decor.Stone;
+import fr.ubx.poo.model.decor.Tree;
+import fr.ubx.poo.model.decor.Monster;
 
 
 
@@ -23,8 +26,8 @@ public class Player extends GameObject implements Movable {
     private boolean moveRequested = false;
     private int lives = 1;
     private boolean winner;
-    private Decor Stone;
-    private Decor Tree;
+
+
 
 
 
@@ -58,8 +61,13 @@ public class Player extends GameObject implements Movable {
             return false;
         }
 
-        if ( (game.getWorld().get(nextPos)  == Stone ) || (game.getWorld().get(nextPos)  == Tree) ){
+
+        if ( (game.getWorld().get(nextPos) instanceof Stone ) || (game.getWorld().get(nextPos) instanceof Tree )){
             return false;
+        }
+
+        if ( game.getWorld().get(nextPos) instanceof Monster){
+            this.lives-=1;
         }
 
         return true;
