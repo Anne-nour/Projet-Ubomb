@@ -4,6 +4,8 @@ import fr.ubx.poo.game.Direction;
 import fr.ubx.poo.game.Game;
 import fr.ubx.poo.game.Position;
 import fr.ubx.poo.model.Movable;
+import fr.ubx.poo.model.decor.Stone;
+import fr.ubx.poo.model.decor.Tree;
 import fr.ubx.poo.model.go.GameObject;
 
 public class Monster extends GameObject implements Movable {
@@ -40,6 +42,15 @@ public class Monster extends GameObject implements Movable {
 
     @Override
     public boolean canMove(Direction direction) {
+        Position nextPos = direction.nextPosition(getPosition());
+
+        if ( !nextPos.inside( this.game.getWorld().dimension ) ){
+            return false;
+        }
+
+        if ( (game.getWorld().get(nextPos) instanceof Stone) || (game.getWorld().get(nextPos) instanceof Tree)){
+            return false;
+        }
         return true;
     }
 

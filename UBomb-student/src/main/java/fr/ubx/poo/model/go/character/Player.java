@@ -15,7 +15,7 @@ import fr.ubx.poo.model.go.GameObject;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
 import fr.ubx.poo.model.decor.Monster;
-
+import fr.ubx.poo.model.decor.Princess;
 
 
 
@@ -69,6 +69,11 @@ public class Player extends GameObject implements Movable {
         if ( game.getWorld().get(nextPos) instanceof Monster){
             this.lives-=1;
         }
+
+        /*if ( game.getWorld().get(nextPos) instanceof Princess){
+            return ;
+        }*/
+
 
         return true;
     }
