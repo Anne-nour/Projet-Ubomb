@@ -31,7 +31,7 @@ public class Player extends GameObject implements Movable {
     public Player(Game game, Position position) {
         super(game, position);
         this.direction = Direction.S;
-        this.lives =  game.getInitPlayerLives();
+        this.lives = game.getInitPlayerLives();
     }
 
     public int getLives() {
@@ -55,12 +55,13 @@ public class Player extends GameObject implements Movable {
     public boolean canMove(Direction direction) {
         Position nextPos = direction.nextPosition(getPosition());
         Decor decor = game.getWorld().get(nextPos);
+
         if ( !nextPos.inside( this.game.getWorld().dimension ) ){
             return false;
         }
 
 
-        if ( (decor instanceof Stone ) || (game.getWorld().get(nextPos) instanceof Tree )){
+        if ( (decor instanceof Stone ) || ( decor instanceof Tree )){
             return false;
         }
 
