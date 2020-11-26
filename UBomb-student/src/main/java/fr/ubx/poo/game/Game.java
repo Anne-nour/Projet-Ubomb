@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.Properties;
 
 import fr.ubx.poo.model.go.character.Player;
@@ -39,13 +40,14 @@ public class Game {
     }
 
     private void loadConfig(String path) {
-        try (InputStream input = new FileInputStream(new File(path, "config.properties"))) {
+        try (InputStream input = new FileInputStream(new File(URLDecoder.decode(path, "UTF-8"), "config.properties"))) {
             Properties prop = new Properties();
             // load the configuration file
             prop.load(input);
             initPlayerLives = Integer.parseInt(prop.getProperty("lives", "3"));
         } catch (IOException ex) {
             System.err.println("Error loading configuration");
+            System.err.println(ex.getLocalizedMessage());
         }
     }
 

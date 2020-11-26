@@ -29,12 +29,10 @@ public class Player extends GameObject implements Movable {
 
 
 
-
-
     public Player(Game game, Position position) {
         super(game, position);
         this.direction = Direction.S;
-        this.lives = game.getInitPlayerLives();
+        this.lives =  game.getInitPlayerLives();
     }
 
     public int getLives() {
