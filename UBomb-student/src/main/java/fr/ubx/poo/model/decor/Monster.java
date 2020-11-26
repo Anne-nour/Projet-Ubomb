@@ -5,4 +5,5 @@ public class Monster extends Decor {
     public String toString() {
         return "Monster";
     }
+
 }
