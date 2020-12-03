@@ -29,7 +29,8 @@ public enum ImageResource {
     DOOR_NEXT_CLOSED("door_closed.png"),
     DOOR_NEXT_OPENED("door_opened.png"),
     DOOR_PREV_OPENED("door_opened.png"),
-    PRINCESS("bomberwoman.png")
+    PRINCESS("bomberwoman.png"),
+    MONSTER("monster_down.png")
     ;
 
     private final String FileName;

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
+import fr.ubx.poo.model.decor.Key;
+import fr.ubx.poo.model.decor.Monster;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
 import fr.ubx.poo.model.decor.Princess;
@@ -62,6 +64,10 @@ public class WorldBuilder {
                 return new DoorPrevOpened();
             case Princess:
                 return new Princess();
+            case Key:
+                return new Key();
+            case Monster:
+                return new Monster();
             default:
                 return null;
         }
