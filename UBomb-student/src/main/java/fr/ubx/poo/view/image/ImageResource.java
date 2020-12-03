@@ -21,6 +21,7 @@ public enum ImageResource {
     PLAYER_UP("player_up.png"),
     STONE("stone.png"),
     TREE("tree.png"),
+    BOX("box.png"),
     ;
 
     private final String FileName;

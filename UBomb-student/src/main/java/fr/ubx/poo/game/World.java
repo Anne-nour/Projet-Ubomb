@@ -6,6 +6,7 @@ package fr.ubx.poo.game;
 
 import fr.ubx.poo.model.decor.Decor;
 
+import java.util.Iterator;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -58,5 +59,15 @@ public class World {
 
     public boolean isEmpty(Position position) {
         return grid.get(position) == null;
+    }
+
+    public String toString() {
+        String s = new String();
+        Iterator<Map.Entry<Position, Decor>> iterator = grid.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Position, Decor> entry = iterator.next();
+            s += entry.getKey().toString() + " : " + entry.getValue().toString() + " | ";
+        }
+        return s;
     }
 }

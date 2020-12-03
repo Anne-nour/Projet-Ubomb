@@ -74,8 +74,14 @@ public class Player extends GameObject implements Movable {
         }*/
         
         if (decor instanceof Box){
+            System.out.println(game.getWorld());
+
             game.getWorld().clear(nextPos);
+
             game.getWorld().set(direction.nextPosition(nextPos), decor);
+            System.out.println("===================");
+            System.out.println(game.getWorld());
+            return true;
         }
 
         return true;

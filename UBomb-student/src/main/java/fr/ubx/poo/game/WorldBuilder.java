@@ -3,7 +3,7 @@ package fr.ubx.poo.game;
 import java.util.Hashtable;
 import java.util.Map;
 
-//import fr.ubx.poo.model.decor.Box;
+import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
@@ -42,9 +42,9 @@ public class WorldBuilder {
                 return new Stone();
             case Tree:
                 return new Tree();
-            /*case  Box:
+            case  Box:
                 return new Box();
-            case BombNumberDec:
+            /*case BombNumberDec:
                 return new BombNumberDec();
             case BombNumberInc:
                 return new BombNumberInc();

@@ -80,7 +80,6 @@ public final class GameEngine {
 
                 // Do actions
                 update(now);
-
                 // Graphic update
                 render();
                 statusBar.update(game);
@@ -140,6 +139,8 @@ public final class GameEngine {
             gameLoop.stop();
             showMessage("Gagné", Color.BLUE);
         }
+
+
     }
 
     private void render() {
