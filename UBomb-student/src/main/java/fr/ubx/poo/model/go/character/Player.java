@@ -14,8 +14,13 @@ import fr.ubx.poo.model.go.GameObject;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
 import fr.ubx.poo.model.decor.Monster;
+import fr.ubx.poo.model.decor.bonus.Heart;
+import fr.ubx.poo.view.image.ImageFactory;
+import fr.ubx.poo.view.sprite.SpriteFactory;
+import fr.ubx.poo.view.sprite.Sprite;
 import fr.ubx.poo.model.decor.Princess;
 
+import static fr.ubx.poo.view.image.ImageResource.BOX;
 
 
 public class Player extends GameObject implements Movable {
@@ -25,7 +30,6 @@ public class Player extends GameObject implements Movable {
     private boolean moveRequested = false;
     private int lives = 1;
     private boolean winner;
-
 
 
     public Player(Game game, Position position) {
@@ -53,6 +57,7 @@ public class Player extends GameObject implements Movable {
 
     @Override
     public boolean canMove(Direction direction) {
+
         Position nextPos = direction.nextPosition(getPosition());
         Decor decor = game.getWorld().get(nextPos);
 
@@ -69,13 +74,16 @@ public class Player extends GameObject implements Movable {
             this.lives-=1;
         }
 
+        if ( decor instanceof Heart){
+            this.lives+=1;
+        }
+
         /*if ( game.getWorld().get(nextPos) instanceof Princess){
-            return ;
+            return  ;
         }*/
         
         if (decor instanceof Box){
             System.out.println(game.getWorld());
-
             game.getWorld().clear(nextPos);
 
             game.getWorld().set(direction.nextPosition(nextPos), decor);
