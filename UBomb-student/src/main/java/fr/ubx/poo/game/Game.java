@@ -20,6 +20,9 @@ public class Game {
     private final Player player;
     private final String worldPath;
     public int initPlayerLives;
+    public int rangeValue = 1;
+    public int bombsValue = 3;
+    public int keyValue = 0;
 
     public Game(String worldPath) {
         world = new WorldStatic();
@@ -37,6 +40,18 @@ public class Game {
 
     public int getInitPlayerLives() {
         return initPlayerLives;
+    }
+
+    public int getrangeValue(){
+        return rangeValue;
+    }
+
+    public int getbombsValue(){
+        return bombsValue;
+    }
+
+    public int getkeyValue(){
+        return keyValue;
     }
 
     private void loadConfig(String path) {

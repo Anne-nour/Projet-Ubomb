@@ -10,11 +10,16 @@ import fr.ubx.poo.game.Position;
 import fr.ubx.poo.model.Movable;
 import fr.ubx.poo.model.decor.Box;
 import fr.ubx.poo.model.decor.Decor;
+import fr.ubx.poo.model.decor.Key;
 import fr.ubx.poo.model.go.GameObject;
 import fr.ubx.poo.model.decor.Stone;
 import fr.ubx.poo.model.decor.Tree;
 import fr.ubx.poo.model.decor.Monster;
+import fr.ubx.poo.model.decor.bonus.BombNumberInc;
+import fr.ubx.poo.model.decor.bonus.BombRangeInc;
 import fr.ubx.poo.model.decor.bonus.Heart;
+import fr.ubx.poo.model.decor.malus.BombNumberDec;
+import fr.ubx.poo.model.decor.malus.BombRangeDec;
 import fr.ubx.poo.view.image.ImageFactory;
 import fr.ubx.poo.view.sprite.SpriteFactory;
 import fr.ubx.poo.view.sprite.Sprite;
@@ -28,20 +33,36 @@ public class Player extends GameObject implements Movable {
     private final boolean alive = true;
     Direction direction;
     private boolean moveRequested = false;
-    private int lives = 1;
+    private int lives = 3;
+    private int bombsValue = 3;
+    private int rangeValue = 1;
+    private int keyValue = 0;
     private boolean winner;
-
 
     public Player(Game game, Position position) {
         super(game, position);
         this.direction = Direction.S;
         this.lives = game.getInitPlayerLives();
+        this.rangeValue = game.getrangeValue();
+        this.bombsValue = game.getbombsValue();
+        this.keyValue = game.getkeyValue();
     }
 
     public int getLives() {
         return lives;
     }
 
+    public int getRangeValue() {
+		return rangeValue;
+	}
+
+	public int getBombsValue() {
+		return bombsValue;
+	}
+
+	public int getKeyValue() {
+		return keyValue;
+	}
     public Direction getDirection() {
         return direction;
     }
@@ -78,10 +99,30 @@ public class Player extends GameObject implements Movable {
             this.lives+=1;
         }
 
-        /*if ( game.getWorld().get(nextPos) instanceof Princess){
-            return  ;
-        }*/
+        if ( game.getWorld().get(nextPos) instanceof Princess){
+            this.winner = true;
+        }
         
+        if(decor instanceof BombRangeInc){
+            this.rangeValue +=1;
+        }
+
+        if (decor instanceof BombRangeDec){
+            this.rangeValue -=1;
+        }
+
+        if (decor instanceof BombNumberInc){
+            this.bombsValue +=1;
+        }
+
+        if (decor instanceof BombNumberDec){
+            this.bombsValue -=1;
+        }
+
+        if (decor instanceof Key){
+            this.keyValue +=1;
+        }
+
         if (decor instanceof Box){
             System.out.println(game.getWorld());
             game.getWorld().clear(nextPos);
@@ -117,5 +158,7 @@ public class Player extends GameObject implements Movable {
     public boolean isAlive() {
         return alive;
     }
+
+	
 
 }
