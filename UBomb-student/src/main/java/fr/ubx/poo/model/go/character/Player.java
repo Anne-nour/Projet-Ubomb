@@ -81,6 +81,7 @@ public class Player extends GameObject implements Movable {
 
         Position nextPos = direction.nextPosition(getPosition());
         Decor decor = game.getWorld().get(nextPos);
+        Decor decor_next = game.getWorld().get(direction.nextPosition(nextPos));
 
         if ( !nextPos.inside( this.game.getWorld().dimension ) ){
             return false;
@@ -125,8 +126,11 @@ public class Player extends GameObject implements Movable {
 
         if (decor instanceof Box){
             System.out.println(game.getWorld());
+            if ( decor_next instanceof Stone ||  decor_next instanceof Tree ||  decor_next instanceof Box
+                    ||  decor_next instanceof Monster ||  ! direction.nextPosition(nextPos).inside( this.game.getWorld().dimension )  ) {
+                return false;
+            }
             game.getWorld().clear(nextPos);
-
             game.getWorld().set(direction.nextPosition(nextPos), decor);
             System.out.println("===================");
             System.out.println(game.getWorld());
