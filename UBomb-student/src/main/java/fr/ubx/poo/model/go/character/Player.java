@@ -19,6 +19,7 @@ import fr.ubx.poo.model.decor.bonus.BombNumberInc;
 import fr.ubx.poo.model.decor.bonus.BombRangeInc;
 import fr.ubx.poo.model.decor.bonus.Heart;
 import fr.ubx.poo.model.decor.malus.BombNumberDec;
+import fr.ubx.poo.model.decor.Bonus;
 import fr.ubx.poo.model.decor.malus.BombRangeDec;
 import fr.ubx.poo.view.image.ImageFactory;
 import fr.ubx.poo.view.sprite.SpriteFactory;
@@ -39,6 +40,8 @@ public class Player extends GameObject implements Movable {
     private int keyValue = 0;
     private boolean winner;
 
+
+
     public Player(Game game, Position position) {
         super(game, position);
         this.direction = Direction.S;
@@ -47,6 +50,8 @@ public class Player extends GameObject implements Movable {
         this.bombsValue = game.getbombsValue();
         this.keyValue = game.getkeyValue();
     }
+
+
 
     public int getLives() {
         return lives;
@@ -79,16 +84,20 @@ public class Player extends GameObject implements Movable {
     @Override
     public boolean canMove(Direction direction) {
 
+
         Position nextPos = direction.nextPosition(getPosition());
         Decor decor = game.getWorld().get(nextPos);
+        if ( decor!= null ) System.out.println(decor.getClass());
         Decor decor_next = game.getWorld().get(direction.nextPosition(nextPos));
 
         if ( !nextPos.inside( this.game.getWorld().dimension ) ){
+
             return false;
         }
 
 
         if ( (decor instanceof Stone ) || ( decor instanceof Tree )){
+
             return false;
         }
 
@@ -125,27 +134,29 @@ public class Player extends GameObject implements Movable {
         }
 
         if (decor instanceof Box){
-            System.out.println(game.getWorld());
-            if ( decor_next instanceof Stone ||  decor_next instanceof Tree ||  decor_next instanceof Box
+            /*System.out.println(game.getWorld());*/
+            if ( decor_next instanceof Stone ||  decor_next instanceof Tree ||  decor_next instanceof Box ||  decor_next instanceof Bonus
                     ||  decor_next instanceof Monster ||  ! direction.nextPosition(nextPos).inside( this.game.getWorld().dimension )  ) {
-                return false;
+                return  false;
             }
-            game.getWorld().clear(nextPos);
-            game.getWorld().set(direction.nextPosition(nextPos), decor);
-            System.out.println("===================");
-            System.out.println(game.getWorld());
+
+            Position positionBox = game.getWorld().findPosition(decor);
+            direction.setNextPosition( positionBox) ;
+            game.getWorld().set(positionBox ,decor);
+
+            /*System.out.println("===================");
+            System.out.println(game.getWorld());*/
             return true;
         }
-
+        /*Direction.values()[(direction.ordinal()+2)%4].nextPosition(getPosition());*/
         return true;
     }
 
     @Override
     public void doMove(Direction direction) {
-        Position nextPos = direction.nextPosition(getPosition());
-        setPosition(nextPos);
+        direction.setNextPosition(getPosition());
+        /*setPosition(nextPos);*/
     }
-
     public void update(long now) {
         if (moveRequested) {
             if (canMove(direction)) {

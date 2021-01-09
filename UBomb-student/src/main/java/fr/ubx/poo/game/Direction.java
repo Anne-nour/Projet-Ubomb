@@ -10,25 +10,26 @@ public enum Direction {
     N {
         @Override
         public Position nextPosition(Position pos, int delta) {
-            return new Position(pos.x, pos.y - delta);
+            return new Position ( pos.x , pos.y - delta);
+
         }
     },
     E {
         @Override
         public Position nextPosition(Position pos, int delta) {
-            return new Position(pos.x + delta, pos.y);
+            return new Position ( pos.x + delta, pos.y );
         }
     },
     S {
         @Override
         public Position nextPosition(Position pos, int delta) {
-            return new Position(pos.x, pos.y + delta);
+            return new Position ( pos.x , pos.y + delta);
         }
     },
     W {
         @Override
         public Position nextPosition(Position pos, int delta) {
-            return new Position(pos.x - delta, pos.y);
+            return new Position ( pos.x - delta , pos.y);
         }
     },
     ;
@@ -48,6 +49,12 @@ public enum Direction {
 
     final public Position nextPosition(Position pos) {
         return nextPosition(pos, 1);
+    }
+
+    final public void setNextPosition(Position pos) {
+        Position nextPos = nextPosition(pos);
+        pos.x = nextPos.x;
+        pos.y = nextPos.y;
     }
 
 }

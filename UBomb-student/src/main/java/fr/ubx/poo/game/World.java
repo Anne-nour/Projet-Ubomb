@@ -33,8 +33,23 @@ public class World {
         throw new PositionNotFoundException("Player");
     }
 
+    public Position findPosition( Decor decor){
+        for (Position position : grid.keySet() ){
+            if ( grid.get(position)  == decor ){
+                return position;
+            }
+        }
+        return null;
+    }
+
     public Decor get(Position position) {
-        return grid.get(position);
+        for (Position position1 : grid.keySet() ){
+            if ( (position1.x == position.x) && (position1.y == position.y)){
+                return grid.get(position1);
+            }
+        }
+        return null;
+
     }
 
     public void set(Position position, Decor decor) {

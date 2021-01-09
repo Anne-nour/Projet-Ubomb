@@ -1,8 +1,8 @@
 package fr.ubx.poo.model.decor.malus;
 
-import fr.ubx.poo.model.decor.Decor;
+import fr.ubx.poo.model.decor.Malus;
 
-public class BombNumberDec extends Decor {
+public class BombNumberDec extends Malus {
 
     @Override
     public String toString() {

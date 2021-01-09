@@ -7,8 +7,8 @@ package fr.ubx.poo.game;
 import java.util.Objects;
 
 public class Position {
-    public final int x;
-    public final int y;
+    public int x;
+    public int y;
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
