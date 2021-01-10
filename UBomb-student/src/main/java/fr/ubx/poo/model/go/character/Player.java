@@ -21,17 +21,11 @@ import fr.ubx.poo.model.decor.bonus.Heart;
 import fr.ubx.poo.model.decor.malus.BombNumberDec;
 import fr.ubx.poo.model.decor.Bonus;
 import fr.ubx.poo.model.decor.malus.BombRangeDec;
-import fr.ubx.poo.view.image.ImageFactory;
-import fr.ubx.poo.view.sprite.SpriteFactory;
-import fr.ubx.poo.view.sprite.SpritePlayer;
-import fr.ubx.poo.view.sprite.Sprite;
 import fr.ubx.poo.model.decor.Princess;
-
-import static fr.ubx.poo.view.image.ImageResource.BOX;
 
 public class Player extends GameObject implements Movable {
 
-    private final boolean alive = true;
+    private boolean alive = true;
     Direction direction;
     private boolean moveRequested = false;
     private int lives = 3;
@@ -124,7 +118,7 @@ public class Player extends GameObject implements Movable {
             if (this.rangeValue != 1) {
                 this.rangeValue -= 1;
             }
-            
+
             Position posBonus = game.getWorld().findPosition(decor);
             game.getWorld().clear(posBonus);
             game.getWorld().setChanged();
@@ -138,9 +132,9 @@ public class Player extends GameObject implements Movable {
             game.getWorld().setChanged();
         }
 
-        if (decor instanceof BombNumberDec){
-            if (this.bombsValue != 0){
-                this.bombsValue -=1;
+        if (decor instanceof BombNumberDec) {
+            if (this.bombsValue != 0) {
+                this.bombsValue -= 1;
             }
 
             Position posBonus = game.getWorld().findPosition(decor);
@@ -148,12 +142,16 @@ public class Player extends GameObject implements Movable {
             game.getWorld().setChanged();
         }
 
-        if (decor instanceof Key){
-            this.keyValue +=1;
+        if (decor instanceof Key) {
+            this.keyValue += 1;
 
             Position posBonus = game.getWorld().findPosition(decor);
             game.getWorld().clear(posBonus);
             game.getWorld().setChanged();
+        }
+
+        if (this.lives == 0) {
+            this.alive = false;
         }
 
         if (decor instanceof Box){
@@ -188,6 +186,10 @@ public class Player extends GameObject implements Movable {
             }
         }
         moveRequested = false;
+    }
+
+    public void plantBomb() {
+        /* Il faut créer une bombe ici */
     }
 
     public boolean isWinner() {
