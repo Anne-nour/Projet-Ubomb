@@ -10,6 +10,11 @@ public class Bomb extends GameObject implements Movable {
 
     Direction direction;
     private boolean moveRequested = false;
+    private boolean bombExplose = false;
+    private boolean isBombDestroy = false;
+    private long timer = 0;
+    private long timer2 = 0;
+
 
     public Bomb(Game game, Position position) {
         super(game, position);
@@ -25,6 +30,10 @@ public class Bomb extends GameObject implements Movable {
         return direction;
     }
 
+    public boolean hasExplosed (){
+        return bombExplose;
+    }
+
     @Override
     public boolean canMove(Direction direction) {
         return false;
@@ -37,11 +46,38 @@ public class Bomb extends GameObject implements Movable {
     }
 
     public void update(long now) {
-        if (moveRequested) {
-            if (canMove(direction)) {
-                doMove(direction);
-            }
+        if ((bombExplose == false) && (timer == 0)) {
+            timer = now;
         }
-        moveRequested = false;
+        else if (timer > timer + 4000000000L){
+            /* Si le timer atteint 4 secondes, la bombe explose*/
+            bombExplose = true;
+        }
     }
-}
+
+    private void Explosion() {
+        bombExplose = true;
+        Direction direction [] = {Direction.W, Direction.E, Direction.N , Direction.S};
+        Position nextPosition = this.getPosition();
+        if (nextPosition.equals(game.getPlayer().getPosition())){
+            game.getPlayer().setLives();
+        }
+    }
+
+
+
+/*public void Invincible(){
+    if (safe == true){
+        if(timer == 60){
+            safe = false;
+            timer = 0;
+        }
+        else 
+        {
+            timer += 1;
+        }
+    }
+    Cette fonction devait rendre le joueur invincible pendant quelques temps 
+    */
+
+    }

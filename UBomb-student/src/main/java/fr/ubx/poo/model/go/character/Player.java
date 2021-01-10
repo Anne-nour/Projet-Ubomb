@@ -47,6 +47,10 @@ public class Player extends GameObject implements Movable {
         return lives;
     }
 
+    public void setLives() {
+        this.lives -= 1;
+    }
+
     public int getRangeValue() {
         return rangeValue;
     }
@@ -155,7 +159,7 @@ public class Player extends GameObject implements Movable {
         }
 
         if (decor instanceof Box){
-            /*System.out.println(game.getWorld());*/
+            
             if ( decor_next instanceof Stone ||  decor_next instanceof Tree ||  decor_next instanceof Box ||  decor_next instanceof Bonus
                     ||  decor_next instanceof Monster ||  ! direction.nextPosition(nextPos).inside( this.game.getWorld().dimension )  ) {
                 return  false;
@@ -164,12 +168,9 @@ public class Player extends GameObject implements Movable {
             Position positionBox = game.getWorld().findPosition(decor);
             direction.setNextPosition( positionBox) ;
             game.getWorld().set(positionBox ,decor);
-
-            /*System.out.println("===================");
-            System.out.println(game.getWorld());*/
             return true;
         }
-        /*Direction.values()[(direction.ordinal()+2)%4].nextPosition(getPosition());*/
+        
         return true;
     }
 

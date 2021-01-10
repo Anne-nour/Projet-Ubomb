@@ -105,6 +105,9 @@ public final class GameEngine {
         if (input.isMoveUp()) {
             player.requestMove(Direction.N);
         }
+        if (input.isBomb()) {
+            /* Ici j'aurais pu gérer lorsque le joueur appui sur espace pour poser une bombe */
+        }
         input.clear();
     }
 
@@ -135,7 +138,6 @@ public final class GameEngine {
             sprites.forEach(Sprite::remove);
             sprites.clear();
             game.getWorld().forEach( (pos,d) -> sprites.add(SpriteFactory.createDecor(layer, pos, d)));
-            /*spritePlayer = SpriteFactory.createPlayer(layer, player);*/
             game.getWorld().setChanged();
         }
         if (player.isAlive() == false) {

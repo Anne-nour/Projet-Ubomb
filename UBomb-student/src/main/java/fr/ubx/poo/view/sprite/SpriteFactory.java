@@ -26,7 +26,6 @@ import fr.ubx.poo.model.go.character.Player;
 import fr.ubx.poo.view.image.ImageFactory;
 import javafx.scene.layout.Pane;
 
-
 public final class SpriteFactory {
 
     public static Sprite createDecor(Pane layer, Position position, Decor decor) {
