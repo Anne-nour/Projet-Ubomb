@@ -16,6 +16,8 @@ public class World {
     private final WorldEntity[][] raw;
     public final Dimension dimension;
 
+    private boolean changed = true;
+
     public World(WorldEntity[][] raw) {
         this.raw = raw;
         dimension = new Dimension(raw.length, raw[0].length);
@@ -52,12 +54,29 @@ public class World {
 
     }
 
+    public boolean haschanged(){
+        return changed;
+    }
+
+    public void setChanged(){
+        if (changed == true){
+            changed = false;
+        }else
+        {
+            changed = true;
+        }
+    }
+
     public void set(Position position, Decor decor) {
         grid.put(position, decor);
     }
 
     public void clear(Position position) {
         grid.remove(position);
+    }
+
+    public void clearBis(Position position, Decor decor1){
+        grid.putIfAbsent(position, decor1);
     }
 
     public void forEach(BiConsumer<Position, Decor> fn) {

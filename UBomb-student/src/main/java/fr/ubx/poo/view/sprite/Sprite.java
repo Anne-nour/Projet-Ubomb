@@ -21,9 +21,8 @@ public abstract class Sprite {
     private final Pane layer;
     private ImageView imageView;
     private Image image;
-    private ImageResource BOX;
 
-
+    
     public Sprite(Pane layer, Image image) {
         this.layer = layer;
         this.image = image;
@@ -35,7 +34,9 @@ public abstract class Sprite {
         }
     }
 
-    public abstract void updateImage();
+    public void updateImage(){
+        
+    }
 
     public abstract Position getPosition();
 

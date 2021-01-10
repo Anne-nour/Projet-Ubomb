@@ -23,11 +23,11 @@ import fr.ubx.poo.model.decor.Bonus;
 import fr.ubx.poo.model.decor.malus.BombRangeDec;
 import fr.ubx.poo.view.image.ImageFactory;
 import fr.ubx.poo.view.sprite.SpriteFactory;
+import fr.ubx.poo.view.sprite.SpritePlayer;
 import fr.ubx.poo.view.sprite.Sprite;
 import fr.ubx.poo.model.decor.Princess;
 
 import static fr.ubx.poo.view.image.ImageResource.BOX;
-
 
 public class Player extends GameObject implements Movable {
 
@@ -40,8 +40,6 @@ public class Player extends GameObject implements Movable {
     private int keyValue = 0;
     private boolean winner;
 
-
-
     public Player(Game game, Position position) {
         super(game, position);
         this.direction = Direction.S;
@@ -51,23 +49,22 @@ public class Player extends GameObject implements Movable {
         this.keyValue = game.getkeyValue();
     }
 
-
-
     public int getLives() {
         return lives;
     }
 
     public int getRangeValue() {
-		return rangeValue;
-	}
+        return rangeValue;
+    }
 
-	public int getBombsValue() {
-		return bombsValue;
-	}
+    public int getBombsValue() {
+        return bombsValue;
+    }
 
-	public int getKeyValue() {
-		return keyValue;
-	}
+    public int getKeyValue() {
+        return keyValue;
+    }
+
     public Direction getDirection() {
         return direction;
     }
@@ -83,54 +80,80 @@ public class Player extends GameObject implements Movable {
 
     @Override
     public boolean canMove(Direction direction) {
-
-
         Position nextPos = direction.nextPosition(getPosition());
         Decor decor = game.getWorld().get(nextPos);
-        if ( decor!= null ) System.out.println(decor.getClass());
+        if (decor != null)
+            System.out.println(decor.getClass());
         Decor decor_next = game.getWorld().get(direction.nextPosition(nextPos));
 
-        if ( !nextPos.inside( this.game.getWorld().dimension ) ){
+        if (!nextPos.inside(this.game.getWorld().dimension)) {
 
             return false;
         }
 
-
-        if ( (decor instanceof Stone ) || ( decor instanceof Tree )){
+        if ((decor instanceof Stone) || (decor instanceof Tree)) {
 
             return false;
         }
 
-        if ( decor instanceof Monster){
-            this.lives-=1;
+        if (decor instanceof Monster) {
+            this.lives -= 1;
         }
 
-        if ( decor instanceof Heart){
-            this.lives+=1;
+        if (decor instanceof Heart) {
+            this.lives += 1;
+
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
-        if ( game.getWorld().get(nextPos) instanceof Princess){
+        if (game.getWorld().get(nextPos) instanceof Princess) {
             this.winner = true;
         }
-        
-        if(decor instanceof BombRangeInc){
-            this.rangeValue +=1;
+
+        if (decor instanceof BombRangeInc) {
+            this.rangeValue += 1;
+
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
-        if (decor instanceof BombRangeDec){
-            this.rangeValue -=1;
+        if (decor instanceof BombRangeDec) {
+            if (this.rangeValue != 1) {
+                this.rangeValue -= 1;
+            }
+            
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
-        if (decor instanceof BombNumberInc){
-            this.bombsValue +=1;
+        if (decor instanceof BombNumberInc) {
+            this.bombsValue += 1;
+
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
         if (decor instanceof BombNumberDec){
-            this.bombsValue -=1;
+            if (this.bombsValue != 0){
+                this.bombsValue -=1;
+            }
+
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
         if (decor instanceof Key){
             this.keyValue +=1;
+
+            Position posBonus = game.getWorld().findPosition(decor);
+            game.getWorld().clear(posBonus);
+            game.getWorld().setChanged();
         }
 
         if (decor instanceof Box){
@@ -151,6 +174,7 @@ public class Player extends GameObject implements Movable {
         /*Direction.values()[(direction.ordinal()+2)%4].nextPosition(getPosition());*/
         return true;
     }
+
 
     @Override
     public void doMove(Direction direction) {
